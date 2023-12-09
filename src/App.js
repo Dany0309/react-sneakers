@@ -3,7 +3,7 @@ import "./index.css";
 function App() {
   return (
     <div className="wrapper clear">
-
+<div></div>
     <div className="overlay">
       <div className="drawer">
         <h2>Корзина</h2>
