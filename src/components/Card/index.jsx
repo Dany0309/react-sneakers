@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Card.module.scss";
-const Card = (props) => {
+const Card = ({onFavorite, title, imageUrl, price, onPlus }) => {
   const [isAdded, setIsAdded] = React.useState(false);
   const [isHeart, setHeart] = React.useState(false)
 
@@ -9,6 +9,7 @@ const Card = (props) => {
   }
   
   const onClickPlus = () => {
+    onPlus({title, imageUrl, price});
     setIsAdded(!isAdded);
   };
 
@@ -17,12 +18,12 @@ const Card = (props) => {
       <div className={style.favorite} onClick={onClickHeart}>
         <img src={isHeart ? "/img/heart-liked.svg":"/img/heart-unliked.svg"} alt="Unliked" />
       </div>
-      <img width={133} height={112} src={props.imageUrl} alt="Sneakers" />
-      <h5>{props.title}</h5>
+      <img width={133} height={112} src={imageUrl} alt="Sneakers" />
+      <h5>{title}</h5>
       <div className="d-flex justify-between align-center">
         <div>
           <span>Цена:</span>
-          <b>{props.price}</b>
+          <b>{price}</b>
           <img
             className={style.plus}
             onClick={onClickPlus}
