@@ -1,9 +1,11 @@
-import Card from "./components/Card";
+import Home from "./pages/Home";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 import "./index.scss";
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import axios from "axios";
+import Favorites from "./pages/Favorites";
 
 function App() {
   const [items, setItems] = React.useState([]);
@@ -55,48 +57,13 @@ function App() {
       )}
       <Header onClickCart={() => setCartOpened(true)} />
 
-      <div className="content p-40">
-        <div className="d-flex align-center justify-between mb-40">
-          <h1>
-            {searchValue
-              ? `Поиск по запросу:"${searchValue}"`
-              : "Все кроссовки"}
-          </h1>
-          <div className="search-block d-flex">
-            <img src="/img/search.svg" alt="" />
-            {searchValue && (
-              <img
-                onClick={() => setSearchValue("")}
-                className="ml-40 removeBtn  clear"
-                src="/img/btn-remove.svg"
-                alt="Remove"
-              />
-            )}
-            <input
-              onChange={onChangeSearchInput}
-              value={searchValue}
-              placeholder="Поиск..."
-            />
-          </div>
-        </div>
+      <Routes>
+        <Route path="/" element={<Home />} exact></Route>
+      </Routes>
 
-        <div className="d-flex flex-wrap">
-          {items
-            .filter((item) =>
-              item.title.toLowerCase().includes(searchValue.toLowerCase())
-            )
-            .map((item, index) => (
-              <Card
-                key={index}
-                title={item.title}
-                price={item.price}
-                imageUrl={item.imageUrl}
-                onFavorite={() => console.log("Добавили в закладки")}
-                onPlus={(obj) => onAddToCart(obj)}
-              />
-            ))}
-        </div>
-      </div>
+      <Routes>
+        <Route path="/favorites" items={favorites} element={<Favorites />} exact></Route>
+      </Routes>
     </div>
   );
 }
